@@ -14,11 +14,58 @@
         rel="stylesheet"
     />
     <script src="map.js" type="module"></script>
+    <style>    
+        header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 1em;
+        }
+
+        .time-filter{
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+
+        .time-filter label{
+            white-space: nowrap;
+        }
+
+        .time-filter input {
+            width: 200px;
+        }
+
+        .time-filter time,
+        .time-filter em{
+            display: block;
+            font-size: 0.85em;
+            margin-left: 0.5em;
+        }
+
+        .time-filter em{
+            color: gray;
+            font-style: italic;
+        }
+      </style>
 </head>
 <body>
     <h1>Bikes! 🚴🏼‍♀️</h1>
+    <div class="time-filter">
+        <label for="time-filter">Filter by time:</label>
+        <input type="range" id="time-filter" min="-1" max="1440" value="-1" />
+        <div>
+            <time id="selected-time">11:59</time>
+          <em id="any-time">(any time)</em>
+        </div>
+      </div>
     <div id="map">
         <svg></svg>
       </div>
+    <div class="legend">
+        <div style="--departure-ratio: 1">More departures</div>
+        <div style="--departure-ratio: 0.5">Balanced</div>
+        <div style="--departure-ratio: 0">More arrivals</div>
+    </div>
 </body>
 </html>

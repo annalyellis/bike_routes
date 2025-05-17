@@ -1,3 +1,8 @@
+:root {
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+}
+
 html,
 body {
   margin: 0;
@@ -5,8 +10,9 @@ body {
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #map {
@@ -25,7 +31,51 @@ body {
   height: 100%;
   z-index: 10;
   pointer-events: none; /* Allows map interaction through SVG */
-  /*background: yellow; /* Optional for debugging */
-  /*opacity: 0.5;        /* Optional for debugging */
 }
 
+circle, .legend > div::before {
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+}
+
+circle {
+  fill: var(--color);
+}
+
+.legend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block: 1rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  z-index: 20;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.legend > div {
+  display: flex;
+  align-items: center;
+  margin: 0 0.5rem;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.legend > div::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  border-radius: 3px;
+  background-color: var(--color);
+}
